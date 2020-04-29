@@ -1,26 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react'
+import Data from './data.js';
+import ImageItem from './ImageItem.js';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+// const creature = {
+//   title: 'monster',
+//   horns: 3,
+//   url:         "https://vignette.wikia.nocookie.net/landbeforetime/images/c/c3/Cera_infobox.png/revision/latest?cb=20180422005003",
+//   description: 'super duper'
+// }
 
-export default App;
+
+
+export default class App extends Component {
+  state = { selected: null }
+
+  handleChange = (e) => {
+    this.setState({ selected: e.target.value}) 
+  }
+
+  render() {
+      return (
+      <main>
+    <section className="choices">
+      <select className="creature-horn-filter" onChange={this.handleChange}>
+        <option value="" defaultValue>
+          All Creatures
+        </option>
+        <option value='1'>1 Horned Creatures</option>
+        <option value='2'>2 Horned Creatures</option>
+        <option value='3'>3 Horned Creatures</option>
+      </select>
+    </section>
+
+      <div>
+        <ul className="creatureList">
+        {
+          Data
+          .filter(poop => {
+            if(!this.state.selected) return true;
+
+            return poop.horn === this.state.selected;
+          })
+          .map(butt => {
+            return <ImageItem creature={butt}/>
+          })
+        }
+
+        </ul>
+        
+      </div>
+      </main>
+    )
+  }
+}
