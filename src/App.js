@@ -2,34 +2,38 @@ import React, { Component } from 'react'
 import Data from './data.js';
 import ImageItem from './ImageItem.js';
 import './App.css';
-
-// const creature = {
-//   title: 'monster',
-//   horns: 3,
-//   url:         "https://vignette.wikia.nocookie.net/landbeforetime/images/c/c3/Cera_infobox.png/revision/latest?cb=20180422005003",
-//   description: 'super duper'
-// }
+import Header from './Header.js';
 
 
 
 export default class App extends Component {
+  
   state = { selected: null }
-
   handleChange = (e) => {
     this.setState({ selected: e.target.value}) 
   }
-
+  
   render() {
-      return (
+    return (
       <main>
+        <div>
+      <Header/>
+        </div>
     <section className="choices">
       <select className="creature-horn-filter" onChange={this.handleChange}>
         <option value="" defaultValue>
           All Creatures
         </option>
-        <option value='1'>1 Horned Creatures</option>
-        <option value='2'>2 Horned Creatures</option>
-        <option value='3'>3 Horned Creatures</option>
+        <option value="narwhal">Narwhals</option>
+        <option value="chameleon">Chameleons</option>
+        <option value="dragon">Dragons</option>
+        <option value="lizard">Lizards</option>
+        <option value="mouflon">Mouflon</option>
+        <option value="addax">Addax</option>
+        <option value="dragon">Dragons</option>
+        <option value="markhor">Markhors</option>
+        <option value="rhino">Rhino</option>
+        <option value="unicorn">Most Powerful Creature Ever</option>
       </select>
     </section>
 
@@ -40,7 +44,7 @@ export default class App extends Component {
           .filter(poop => {
             if(!this.state.selected) return true;
 
-            return poop.horn === this.state.selected;
+            return poop.keyword === this.state.selected;
           })
           .map(butt => {
             return <ImageItem creature={butt}/>
